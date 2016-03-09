@@ -1,0 +1,48 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\lstloadlanguages{Python}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Построить график частотности терминов в зависимости от их позиции при сортировке по убыванию частоты. Подобрать параметры $P, \rho, B$ для формулы закона Ципфа-Мандельброта
+$$f(rank) = P \cdot {(rank + \rho)}^{-B}$$
+для наилучшей аппроксимации.
+
+
+\subsection*{Исходный код}
+\lstinputlisting{../src/mandelbrot.py}
+
+
+\subsection*{Результат выполнения}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.8]{mandelbrot.png}
+	\caption{Иллюстрация закона Ципфа-Мандельброта для романа А.\,Толстого <<Анна Каренина>> $(P = 1.1 \cdot {10}^4, \rho = 1.75, B = 0.8)$}
+\end{figure}
+
+\subsection*{Выводы}
+Закон Ципфа-Мандельброта более достоверно описывает распределение частотности терминов, чем закон Ципфа, и не так сильно расходится с реальными показателями для низко- и высокочастотных терминов.
+\end{document}
+

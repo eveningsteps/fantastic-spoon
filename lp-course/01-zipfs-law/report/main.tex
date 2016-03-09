@@ -1,0 +1,48 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\lstloadlanguages{Python}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Построить график частотности терминов в зависимости от их позиции при сортировке по убыванию частоты. Подобрать параметры для формулы закона Ципфа
+$$f(rank, s) = \dfrac{C}{{rank}^s}$$
+для наилучшей аппроксимации.
+
+
+\subsection*{Исходный код}
+\lstinputlisting{../src/zipf.py}
+
+
+\subsection*{Результат выполнения}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.8]{zipf.png}
+	\caption{Иллюстрация закона Ципфа для s = 0.8, C = 6800}
+\end{figure}
+
+\subsection*{Выводы}
+Распределение частот терминов подчиняется закону, близкому к закону Ципфа, но на некоторых участках заметно расхождение этих двух кривых.
+\end{document}
+

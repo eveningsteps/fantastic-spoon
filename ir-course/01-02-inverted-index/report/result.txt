@@ -1,0 +1,17 @@
+$ ./indexer_noparse.exe ./index ./tolstoy/karenina.html
+Execution time: 589 ms
+Tokens: 280236 (average length: 9.64033)
+Terms: 33854 (average length: 16.3187)
+Read 7798 paragraphs of text
+ 
+$ ./indexer_noparse.exe ./index ./tolstoy/issledovanie.html
+Execution time: 172 ms
+Tokens: 88081 (average length: 10.2303)
+Terms: 13864 (average length: 16.2988)
+Read 2169 paragraphs of text
+ 
+$ ./indexer_noparse.exe ./index ./tolstoy/voskresenie.html
+Execution time: 318 ms
+Tokens: 153778 (average length: 10.1416)
+Terms: 27164 (average length: 16.1468)
+Read 4349 paragraphs of text

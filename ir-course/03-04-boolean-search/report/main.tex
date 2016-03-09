@@ -1,0 +1,53 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\lstloadlanguages{C++}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Необходимо реализовать булев поиск по обратному индексу, построенному в ЛР 1 -- 2.
+
+На стандартный ввод программе поступают запросы, содержащие токены и ключевые слова {\tt and, or, not}. В ответ на каждый запрос программа выводит список документов, удовлетворяющих запросу, а также время выполнения запроса.
+
+
+\subsection*{Алгоритм}
+Для разбора запроса используется алгоритм сортировочной станции. После этого запрос, переведённый в постфиксную нотацию, выполняется.
+
+При выполнении запроса учитывается частотность слов для оптимизации запросов вида {\tt A and B and C and ...}. Для этого на этапе разбора несколько двуместных операторов {\tt and} заменяются на один $N$-местный, что позволяет позднее отсортировать слова по частоте и тем самым ускорить пересечение списков документов за счёт более быстрого сужения результирующего списка.
+
+
+\subsection*{Исходный код}
+\lstinputlisting{../src/searcher.d}
+
+
+\newpage
+\subsection*{Результат выполнения}
+\lstinputlisting{./result.txt}
+
+
+\subsection*{Выводы}
+Время выполнения запроса с несколькими {\tt and} или {\tt or} можно оптимизировать, отсортировав списки вхождений по количеству документов. К примеру, для запроса ''и and в and я'' ускорение составило $1 - \dfrac{0.323}{0.507} \approx 36\%$.
+
+\end{document}
+

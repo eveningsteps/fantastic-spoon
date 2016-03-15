@@ -1,17 +1,18 @@
-$ ./indexer_noparse.exe ./index ./tolstoy/karenina.html
-Execution time: 589 ms
-Tokens: 280236 (average length: 9.64033)
-Terms: 33854 (average length: 16.3187)
-Read 7798 paragraphs of text
- 
-$ ./indexer_noparse.exe ./index ./tolstoy/issledovanie.html
-Execution time: 172 ms
-Tokens: 88081 (average length: 10.2303)
-Terms: 13864 (average length: 16.2988)
-Read 2169 paragraphs of text
- 
-$ ./indexer_noparse.exe ./index ./tolstoy/voskresenie.html
-Execution time: 318 ms
-Tokens: 153778 (average length: 10.1416)
-Terms: 27164 (average length: 16.1468)
-Read 4349 paragraphs of text
+asd@capsule 01-02-inverted-index$ ./indexer -i ../../index -t ../../texts/karenina.html
+Execution time: 530 ms
+Tokens: 277343 (average length: 5.11855)
+Terms: 33634 (average length: 8.20586)
+Read 7793 paragraphs of text
+
+asd@capsule 01-02-inverted-index$ ./indexer -i ../../index -t ../../texts/issledovanie.html 
+Execution time: 220 ms
+Tokens: 88030 (average length: 5.38349)
+Terms: 14517 (average length: 8.78425)
+Read 2157 paragraphs of text
+
+asd@capsule 01-02-inverted-index$ ./indexer -i ../../index -t ../../texts/voskresenie.html
+Execution time: 344 ms
+Tokens: 148211 (average length: 5.53751)
+Terms: 28929 (average length: 8.97974)
+Read 4348 paragraphs of text
+

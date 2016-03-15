@@ -8,6 +8,14 @@ import std.utf;
 
 import indexer;
 
+struct DummyStemmer
+{
+	dstring stem(in dstring word)
+	{
+		return word;
+	}
+}
+
 void main(string[] args)
 {	
 	string index_path, text_path;
@@ -22,7 +30,7 @@ void main(string[] args)
 	}
 	
 	auto starttime = MonoTime.currTime();
-	auto indexer = new Indexer;
+	auto indexer = new Indexer!DummyStemmer;
 	
 	string raw_text = to!string(read(text_path));
 	indexer.build_index(toUTF32(raw_text));

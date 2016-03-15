@@ -10,13 +10,15 @@ struct Doc
 	int id, pos;
 }
 
-class Indexer
+class Indexer(S)
 {
 	Doc[][dstring] index;
 	double[string] stats;
-
+	
 	void build_index(dstring text)
 	{
+		S stemmer;
+
 		int token_id, doc_id;
 		long token_len, term_len;
 		auto delimiters = redBlackTree!dchar([' ', '.', ',', '"', '\'', '(', ')', '!', '?', ':', ';', '\n', '-']);
@@ -47,7 +49,7 @@ class Indexer
 			// convert token to term and add to dictionary
 			if(c == ' ' && !(word is null))
 			{
-				word = toLower(word);
+				word = toLower(stemmer.stem(word));
 				
 				bool first_occ = !(word in index);
 				bool next_occ = !first_occ && (index[word][$ - 1].id != doc_id);

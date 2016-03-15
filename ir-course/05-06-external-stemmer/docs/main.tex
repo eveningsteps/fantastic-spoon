@@ -1,0 +1,76 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multirow}
+
+\lstloadlanguages{C++}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Использовать при индексировании документов (ЛР 1--2) внешний стеммер и сравнить параметры полученного индекса с первоначальными.
+
+
+\subsection*{Исходный код}
+
+\subsubsection*{Обёртка (C++)}
+\lstinputlisting{../src/glue.cpp}
+
+\subsubsection*{Обёртка (D)}
+\lstinputlisting{../src/wrapper.d}
+
+\newpage
+\subsubsection*{Индексирование}
+\lstinputlisting{../src/main.d}
+
+
+\newpage
+\subsection*{Результат выполнения}
+\lstinputlisting{./result.txt}
+
+\vspace{1em}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Произведение & Стеммер & Терминов & Средняя длина & Время работы \\
+\hline
+\multirow{2}{*}{<<Анна Каренина>>}   & -                 & 33634 & 8.21 & 530 мс  \\
+\cline{2-5}
+                                     & Oleander (Porter) & 13726 & 6.53 & 1332 мс \\
+\hline
+\multirow{2}{*}{<<Воскресение>>}     & -                 & 28939 & 8.98 & 344 мс  \\
+\cline{2-5}
+                                     & Oleander (Porter) & 14677 & 8.36 & 792 мс  \\
+\hline
+\multirow{2}{*}{<<Исследование...>>} & -                 & 14517 & 8.78 & 220 мс  \\
+\cline{2-5}
+                                     & Oleander (Porter) & 7253  & 7.63 & 460 мс  \\
+\hline
+\end{tabular}
+
+
+\vspace{1em}
+
+\subsection*{Выводы}
+Количество терминов в текстах после стемминга сократилось примерно в два--три раза, а размер индекса -- в три--четыре раза (для текста <<Исследование догматического богословия>> --- с 2.8 мегабайт до 698 килобайт).
+\end{document}
+

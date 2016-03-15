@@ -1,0 +1,18 @@
+asd@capsule 05-06-external-stemmer$ ./stemmed_index -i ../../stemmed-index -t ../../texts/karenina.html 
+Execution time: 1332 ms
+Tokens: 277343 (average length: 4.10151)
+Terms: 13726 (average length: 6.53111)
+Read 7793 paragraphs of text
+
+asd@capsule 05-06-external-stemmer$ ./stemmed_index -i ../../stemmed-index -t ../../texts/voskresenie.html 
+Execution time: 792 ms
+Tokens: 148211 (average length: 4.46684)
+Terms: 14677 (average length: 8.35688)
+Read 4348 paragraphs of text
+
+asd@capsule 05-06-external-stemmer$ ./stemmed_index -i ../../stemmed-index -t ../../texts/issledovanie.html 
+Execution time: 460 ms
+Tokens: 88030 (average length: 4.31863)
+Terms: 7253 (average length: 7.62843)
+Read 2157 paragraphs of text
+

@@ -1,0 +1,30 @@
+asd@capsule 07-index-with-skip-pointers$ echo -e "и and анна \n и and он \n тебя and вот" | ./searcher -i ../../index/ -t ../../texts/karenina.html -s 0
+Index read in 217 ms
+Query processed in 0.202 ms with 315 results (4236 comparsions)
+Query processed in 0.274 ms with 2107 results (5030 comparsions)
+Query processed in 0.03 ms with 14 results (504 comparsions)
+
+sd@capsule 07-index-with-skip-pointers$ echo -e "и and анна \n и and он \n тебя and вот" | ./searcher -i ../../index/ -t ../../texts/karenina.html -s 2
+Index read in 252 ms
+Query processed in 0.51 ms with 315 results (2682 comparsions)
+Query processed in 0.643 ms with 2107 results (4841 comparsions)
+Query processed in 0.055 ms with 14 results (449 comparsions)
+
+asd@capsule 07-index-with-skip-pointers$ echo -e "и and анна \n и and он \n тебя and вот" | ./searcher -i ../../index/ -t ../../texts/karenina.html -s 4
+Index read in 237 ms
+Query processed in 0.299 ms with 315 results (1999 comparsions)
+Query processed in 0.502 ms with 2107 results (4800 comparsions)
+Query processed in 0.05 ms with 14 results (436 comparsions)
+
+asd@capsule 07-index-with-skip-pointers$ echo -e "и and анна \n и and он \n тебя and вот" | ./searcher -i ../../index/ -t ../../texts/karenina.html -s 6
+Index read in 216 ms
+Query processed in 0.236 ms with 315 results (1852 comparsions)
+Query processed in 0.447 ms with 2107 results (4924 comparsions)
+Query processed in 0.047 ms with 14 results (473 comparsions)
+
+asd@capsule 07-index-with-skip-pointers$ echo -e "и and анна \n и and он \n тебя and вот" | ./searcher -i ../../index/ -t ../../texts/karenina.html -s 8
+Index read in 205 ms
+Query processed in 0.203 ms with 315 results (1868 comparsions)
+Query processed in 0.422 ms with 2107 results (4946 comparsions)
+Query processed in 0.045 ms with 14 results (479 comparsions)
+

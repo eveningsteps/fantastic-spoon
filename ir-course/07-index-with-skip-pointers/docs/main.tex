@@ -1,0 +1,73 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multirow}
+
+\lstloadlanguages{C++}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Реализовать алгоритм пересечения с прыжками по индексу, построенному в ЛР 1--2. Подсчитать количество сравнений координат для различной длины прыжка, сравнить его с количеством сравнений при работе с обычным индексом.
+
+
+\subsection*{Исходный код}
+\lstinputlisting{../src/searcher.d}
+
+
+\subsection*{Результат выполнения}
+\lstinputlisting{./result.txt}
+
+\vspace{1cm}
+
+\begin{tabular}{|c|c|c|}
+\hline
+Запрос         & Длина прыжка & Сравнения \\
+\hline
+\multirow{5}{*}
+{и and анна}   & -            & 4236 \\
+               & 2            & 2682 \\
+               & 4            & 1999 \\
+               & 6            & 1852 \\
+               & 8            & 1868 \\
+\hline
+\multirow{5}{*}
+{и and он}     & -            & 5030 \\
+               & 2            & 4891 \\
+			   & 4            & 4800 \\
+			   & 6            & 4924 \\
+			   & 8            & 4946 \\
+\hline
+\multirow{5}{*}
+{тебя and вот} & -            & 504  \\
+               & 2            & 449  \\
+			   & 4            & 436  \\
+			   & 6            & 473  \\
+			   & 8            & 479  \\
+\hline
+\end{tabular}
+
+\vspace{1cm}
+
+\subsection*{Выводы}
+Наибольший прирост производительности приносят малые длины прыжков (от 2 до 6). Чем меньше пересечение списков, тем сильнее длина прыжка влияет на количество сравнений, которое, впрочем, в определённый момент вновь начинает расти.
+\end{document}

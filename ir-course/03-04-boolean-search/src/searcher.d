@@ -6,6 +6,7 @@ import std.container;
 import std.datetime;
 import std.string;
 import std.getopt;
+import std.utf;
 
 struct Doc
 {
@@ -17,7 +18,7 @@ struct QueryParser
 {
 	struct Token
 	{
-		string t;
+		dstring t;
 		
 		bool is_op;
 		int arity;
@@ -38,10 +39,10 @@ struct QueryParser
 	}
 
 
-	Token[] parse_query(in string q)
+	Token[] parse_query(in dstring q)
 	{
 		Token[] output, stack;
-		string[] words = q.split();
+		dstring[] words = q.split();
 		
 		foreach(word; words)
 		{
@@ -101,7 +102,7 @@ struct QueryParser
 	}
 
 	
-	int[] evaluate_query(Token[] tokens, int[][string] dict, int doc_count)
+	int[] evaluate_query(Token[] tokens, int[][dstring] dict, int doc_count)
 	{
 		if(!tokens.length)
 			return [];
@@ -115,7 +116,7 @@ struct QueryParser
 			else
 			{
 				if(token.arity > stack.length)
-					throw new Exception("Not enough arguments for operator " ~ token.t);
+					throw new Exception("Not enough arguments for operator " ~ to!string(token.t));
 
 				auto res = evaluate(stack[$ - token.arity .. $], token, doc_count);
 				stack.length -= token.arity;
@@ -177,7 +178,7 @@ struct QueryParser
 	}
 
 	
-	int[] process(string line, int[][string] dict, int doc_count)
+	int[] process(dstring line, int[][dstring] dict, int doc_count)
 	{
 		return evaluate_query(parse_query(line), dict, doc_count);
 	}
@@ -206,21 +207,22 @@ void main(string[] args)
 	File index = File(index_path ~ "/index", "rb");
 	File dictionary = File(index_path ~ "/dictionary", "r");
 
-	int[][string] dict;
+	int[][dstring] dict;
 	int[int] start_of;
 
 	auto starttime = MonoTime.currTime();
 
-	string text = to!string(read(text_path));
+	dstring text = toUTF32(to!string(read(text_path)));
 	int wc;
 
 	dictionary.readf(" %s", &wc);
 	foreach(u; 0 .. wc)
 	{
-		string word;
+		string w;
 		int pos, freq;
-		dictionary.readf(" %s %s %s", &word, &freq, &pos);
-
+		dictionary.readf(" %s %s %s", &w, &freq, &pos);
+		
+		dstring word = toUTF32(w);
 		int dc;
 		index.rawRead((&dc)[0 .. 1]);
 		Doc[] d = new Doc[dc];
@@ -238,7 +240,7 @@ void main(string[] args)
 	writefln("Index read in %s ms", delta.total!"msecs");
 	
 	QueryParser qp;
-	foreach(string line; lines(stdin))
+	foreach(dstring line; lines(stdin))
 	{
 		auto st = MonoTime.currTime();
 		int[] result = qp.process(line, dict, to!int(start_of.length));

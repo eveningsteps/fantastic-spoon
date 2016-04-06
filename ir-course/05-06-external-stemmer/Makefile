@@ -1,33 +1,31 @@
 CC = g++
-LD_FLAGS=-lstdc++
+LD_FLAGS+=-lstdc++
 
 DC = dmd
 DFLAGS = -release -O -inline -boundscheck=off -I$(SRCDIR) -I$(INDEXER_DIR)
 
-OBJDIR = .
 SRCDIR = src
+OBJDIR = .
 INDEXER_DIR = ../01-02-inverted-index/src
+SRCS = $(notdir $(wildcard $(SRCDIR)/*.d))
+OBJS = $(addprefix $(OBJDIR)/,$(SRCS:.d=.o) glue.o indexer.o)
+OUT = task
 
 
-default: stemmed_index
+default: $(OUT)
 
-stemmed_index: glue.o wrapper.o indexer.o main.o
-	$(DC) $(DFLAGS) -L$(LD_FLAGS) $(OBJDIR)/glue.o $(OBJDIR)/wrapper.o $(OBJDIR)/indexer.o $(OBJDIR)/main.o -ofstemmed_index
+$(OUT): $(OBJS)
+	$(DC) $(DFLAGS) -L$(LD_FLAGS) $^ -of$(OUT)
 
+$(OBJDIR)/%.o: $(SRCDIR)/%.d
+	$(DC) $(DFLAGS) -c $< -od$(OBJDIR)
 
 glue.o: $(SRCDIR)/glue.cpp
-	$(CC) -c $(SRCDIR)/glue.cpp -o $(OBJDIR)/glue.o
-
-wrapper.o: $(SRCDIR)/wrapper.d
-	$(DC) $(DFLAGS) -c $(SRCDIR)/wrapper.d -od$(OBJDIR)
+	$(CC) -c $< -o $(OBJDIR)/$@
 
 indexer.o: $(INDEXER_DIR)/indexer.d
-	$(DC) $(DFLAGS) -c $(INDEXER_DIR)/indexer.d -od$(OBJDIR)
-
-main.o: $(SRCDIR)/main.d
-	$(DC) $(DFLAGS) -c $(SRCDIR)/main.d -od$(OBJDIR)
-
+	$(DC) $(DFLAGS) -c $< -od$(OBJDIR)
 
 clean:
-	rm -r $(OBJDIR)/*.o stemmed_index
+	rm -r $(OBJDIR)/*.o $(OUT)
 

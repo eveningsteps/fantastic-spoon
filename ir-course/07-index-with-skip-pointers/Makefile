@@ -1,17 +1,20 @@
 DC = dmd
 FLAGS = -release -O -inline -boundscheck=off -I$(SRCDIR)
-OBJDIR = .
+
 SRCDIR = src
+OBJDIR = .
+SRCS = $(notdir $(wildcard $(SRCDIR)/*.d))
+OBJS = $(addprefix $(OBJDIR)/,$(SRCS:.d=.o))
+OUT = task
 
-default: searcher
+default: $(OUT)
 
-searcher: searcher.o
-	$(DC) $(FLAGS) $(OBJDIR)/searcher.o -ofsearcher
+$(OUT): $(OBJS)
+	$(DC) $(FLAGS) $^ -of$(OUT)
 
-
-searcher.o: $(SRCDIR)/searcher.d
-	$(DC) $(FLAGS) -c $(SRCDIR)/searcher.d -od$(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.d
+	$(DC) $(FLAGS) -c $< -od$(OBJDIR)
 
 clean:
-	rm -r $(OBJDIR)/*.o searcher 
+	rm -r $(OBJDIR)/*.o $(OUT)
 

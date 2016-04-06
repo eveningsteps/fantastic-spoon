@@ -1,21 +1,20 @@
 DC = dmd
 FLAGS = -release -O -inline -boundscheck=off -I$(SRCDIR)
-OBJDIR = .
+
 SRCDIR = src
+OBJDIR = .
+SRCS = $(notdir $(wildcard $(SRCDIR)/*.d))
+OBJS = $(addprefix $(OBJDIR)/,$(SRCS:.d=.o))
+OUT = task
 
-default: indexer
+default: $(OUT)
 
-indexer: main.o indexer.o
-	$(DC) $(FLAGS) $(OBJDIR)/main.o $(OBJDIR)/indexer.o -ofindexer
+$(OUT): $(OBJS)
+	$(DC) $(FLAGS) $^ -of$(OUT)
 
-
-main.o: $(SRCDIR)/main.d
-	$(DC) $(FLAGS) -c $(SRCDIR)/main.d -od$(OBJDIR)
-
-indexer.o: $(SRCDIR)/indexer.d
-	$(DC) $(FLAGS) -c $(SRCDIR)/indexer.d -od$(OBJDIR)
-
+$(OBJDIR)/%.o: $(SRCDIR)/%.d
+	$(DC) $(FLAGS) -c $< -od$(OBJDIR)
 
 clean:
-	rm -r $(OBJDIR)/*.o indexer
+	rm -r $(OBJDIR)/*.o $(OUT)
 

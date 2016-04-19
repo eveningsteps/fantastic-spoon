@@ -1,0 +1,16 @@
+asd@capsule 08-bigrams$ echo "< все счастливые семьи >" | ./task -i ./bigram_index -t  ../../text/karenina.html 
+Index built in 1144 ms
+Index read in 1765 ms
+[0]
+Query processed in 0.011 ms with 1 results
+
+asd@capsule 08-bigrams$ echo "< все счастливые семьи > and несчастлива" | ./task -i ./bigram_index -t  ../../text/karenina.html 
+Index built in 1148 ms
+Index read in 1768 ms
+[0]
+Query processed in 0.015 ms with 1 results
+
+asd@capsule 08-bigrams$ du -h bigram_index/ ../../index/
+11M bigram_index/
+2.7M    ../../index/
+

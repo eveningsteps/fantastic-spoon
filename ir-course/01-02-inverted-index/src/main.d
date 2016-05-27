@@ -23,7 +23,7 @@ void main(string[] args)
 		"i|index", &index_path,
 		"t|text", &text_path);
 	
-	if(!index_path.length || !text_path.length)
+	if(index_path.empty || text_path.empty)
 	{
 		writefln("USAGE: %s -i <index path> -t <text file>", args[0]);
 		return;
@@ -40,8 +40,8 @@ void main(string[] args)
 	auto delta = endttime - starttime;
 	
 	writefln("Execution time: %s ms", delta.total!"msecs");
-	writefln("Tokens: %s (average length: %s)", indexer.stats["tokens"], indexer.stats["avg_token_length"]);
-	writefln("Terms: %s (average length: %s)", indexer.stats["terms"], indexer.stats["avg_term_length"]);
-	writefln("Read %s paragraphs of text", indexer.stats["docs"]);
+	writefln("Tokens: %s (average length: %s)", indexer.stats["tokens"], indexer.stats["tokens_length"] / indexer.stats["tokens"]);
+	writefln("Terms: %s (average length: %s)", indexer.stats["terms"], indexer.stats["terms_length"] / indexer.stats["terms"]);
+	writefln("Read %s documents", indexer.stats["docs"]);
 }
 

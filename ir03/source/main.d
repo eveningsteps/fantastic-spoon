@@ -33,8 +33,8 @@ void main(string[] args)
 	auto delta = endttime - starttime;
 	
 	writefln("Execution time: %s ms", delta.total!"msecs");
-	writefln("Tokens: %s (average length: %s)", indexer.stats["tokens"], indexer.stats["avg_token_length"]);
-	writefln("Terms: %s (average length: %s)", indexer.stats["terms"], indexer.stats["avg_term_length"]);
+	writefln("Tokens: %s (average length: %s)", indexer.stats["tokens"], indexer.stats["tokens_length"] / indexer.stats["tokens"]);
+	writefln("Terms: %s (average length: %s)", indexer.stats["terms"], indexer.stats["terms_length"] / indexer.stats["terms"]);
 	writefln("Read %s paragraphs of text", indexer.stats["docs"]);
 }
 

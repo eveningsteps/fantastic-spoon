@@ -1,0 +1,15 @@
+{
+	"name": "ir03",
+	"authors": ["eveningsteps"],
+	
+	"dependencies": {
+		"fantastic-spoon": {
+			"path": "../"
+		}
+	},
+
+	"preBuildCommands": ["g++ -c source/glue.cpp"],
+	"sourceFiles": ["glue.o"],
+	"lflags": ["-lstdc++"],
+	"targetType": "executable"
+}

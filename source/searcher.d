@@ -1,21 +1,27 @@
-import std.algorithm;
+module searcher;
+
 import std.conv;
 import std.container;
 import std.string;
+import std.array;
+import std.range;
+import std.algorithm;
+import std.file;
+import std.stdio;
 
 
-struct Doc
+struct Posting
 {
-	int id, pos;
+	int doc_id, pos;
 }
 
 
-struct QueryParser
+struct Searcher
 {
 	struct Token
 	{
 		dstring t;
-		
+
 		bool is_op;
 		int arity;
 		int priority() const @property
@@ -33,6 +39,21 @@ struct QueryParser
 			}
 		}	
 	}
+	
+	Posting[][dstring] index;
+
+
+	void read_index(in string path)
+	{
+		File index_file = File(path ~ "/index", "r");
+		foreach(dstring line; lines(index_file))
+		{
+			auto l = line.split("\t");
+			auto p = l[1].split().map!(a => to!int(a))().array;
+			foreach(x; zip(stride(p[0 .. $], 2), stride(p[1 .. $], 2)))
+				index[l[0]] ~= searcher.Posting(x[0], x[1]);
+		}
+	}
 
 
 	Token[] parse_query(in dstring q)
@@ -48,7 +69,7 @@ struct QueryParser
 				case "or":
 				case "not":
 					Token op = { t: word, is_op: true, arity: (word == "not"? 1 : 2)};
-					while(stack.length && stack[$ - 1].is_op && (op.priority <= stack[$ - 1].priority))
+					while(!stack.empty && stack[$ - 1].is_op && (op.priority <= stack[$ - 1].priority))
 					{
 						if(op.t != stack[$ - 1].t)
 							output ~= stack[$ - 1];
@@ -67,7 +88,7 @@ struct QueryParser
 
 				case ")":
 					bool found_lp = false;
-					while(stack.length && !found_lp)
+					while(!stack.empty && !found_lp)
 					{
 						found_lp = (stack[$ - 1].t == "(");
 						if(!found_lp)
@@ -98,18 +119,25 @@ struct QueryParser
 	}
 
 	
-	int[] evaluate_query(Token[] tokens, int[][dstring] dict, int doc_count)
+	int[] evaluate_query(Token[] tokens, int doc_count)
 	{
 		if(!tokens.length)
 			return [];
 		
 		int[][] stack;
-
 		foreach(token; tokens)
 		{
 			if(!token.is_op)
-				stack ~= dict.get(token.t, []);
-			else
+			{
+				auto postings = index.get(token.t, null);
+				if(postings)
+				{
+					auto tmp = postings.map!(a => a.doc_id)().array;
+					stack ~= tmp;
+				} else
+					stack ~= (int[]).init;
+
+			} else
 			{
 				if(token.arity > stack.length)
 					throw new Exception("Not enough arguments for operator " ~ to!string(token.t));
@@ -119,7 +147,6 @@ struct QueryParser
 				stack ~= res;
 			}
 		}
-		
 		return stack[0];
 	}
 
@@ -130,30 +157,26 @@ struct QueryParser
 		{
 			case "and":
 				return apply_and(slice);
-				break;
 
 			case "or":
 				return apply_or(slice);
-				break;
 
 			case "not":
 				return apply_not(slice, doc_count);
-				break;
 		}
-		return [];
 	}
 
 
 	int[] apply_and(int[][] slice)
 	{
 		sort!((a, b) => a.length < b.length) (slice);
-		return reduce!((a, b) => std.array.array(setIntersection(a, b))) (slice);
+		return reduce!((a, b) => setIntersection(a, b).array) (slice);
 	}
 
 	
 	int[] apply_or(int[][] slice)
 	{
-		return std.array.array(uniq(reduce!((a, b) => std.array.array(setUnion(a, b))) (slice)));
+		return uniq(reduce!((a, b) => setUnion(a, b).array) (slice)).array;
 	}
 
 	
@@ -174,9 +197,9 @@ struct QueryParser
 	}
 
 	
-	int[] process(dstring line, int[][dstring] dict, int doc_count)
+	int[] process(dstring line, int doc_count)
 	{
-		return evaluate_query(parse_query(line), dict, doc_count);
+		return evaluate_query(parse_query(line), doc_count);
 	}
 }
 

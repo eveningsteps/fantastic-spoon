@@ -1,8 +1,12 @@
 **/*.aux
 **/*.log
 **/*.pdf
-
-text/*
-index/*
+**/*.swp
 
 **/*.o
+**/.dub
+**/dub.selections.json
+
+text
+index
+

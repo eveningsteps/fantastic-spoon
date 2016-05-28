@@ -9,7 +9,9 @@ import std.conv;
 import std.stdio;
 import std.algorithm;
 import std.array;
-import arsd.dom;
+import std.range;
+
+import html.dom;
 
 
 struct Posting
@@ -34,13 +36,14 @@ class Indexer(S)
 
 	void build_index(dstring text)
 	{
-		auto document = new Document(to!string(text));
+		auto document = createDocument(to!string(text));
 		auto docs = document.querySelectorAll("dd");
 		
-		foreach(i, doc; docs)
-			parse_doc(to!int(i), toUTF32(doc.innerText));
-		
-		stats["docs"] += docs.length;
+		foreach(i, doc; docs.enumerate())
+		{
+			parse_doc(to!int(i), toUTF32(doc.text));
+			++stats["docs"];
+		}
 		stats["terms"] = index.length;
 	}
 

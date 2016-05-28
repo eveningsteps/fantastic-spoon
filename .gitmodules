@@ -1,3 +1,3 @@
-[submodule "arsd"]
-	path = arsd
-	url = https://github.com/adamdruppe/arsd
+[submodule "ir03/source/OleanderStemmingLibrary"]
+	path = ir03/source/OleanderStemmingLibrary
+	url = https://github.com/OleanderSoftware/OleanderStemmingLibrary

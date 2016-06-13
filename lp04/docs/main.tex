@@ -1,0 +1,44 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\lstloadlanguages{C++}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Построить языковую модель, используя один из методов сглаживания n-грамм.
+
+\subsection*{Алгоритм}
+В качестве корпуса был взят архив новостей <<РИА Новости>> за 2007 год (100 тысяч предложений). Для построения языковой модели было выбрано сглаживание Лидстона. В качестве метрики эффективности сглаживания была взята perplexity; тестирование проводилось с помощью кросс-валидации.
+
+\subsection*{Исходный код}
+\lstinputlisting{../src/smoothing.d}
+
+\subsection*{Результат выполнения}
+\lstinputlisting{./result.txt}
+
+\subsection*{Выводы}
+Perplexity является в данном случае подходящей метрикой, т.к. тестовые данные имеют ту же структуру, что и тренировочные данные (предложения из архива новостей). Для другого набора тестов лучше бы подошла внешняя (extrinsic) валидация.
+
+\end{document}
+

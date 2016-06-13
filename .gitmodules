@@ -1,3 +1,3 @@
-[submodule "ir03/source/OleanderStemmingLibrary"]
-	path = ir03/source/OleanderStemmingLibrary
+[submodule "ir03/src/OleanderStemmingLibrary"]
+	path = ir03/src/OleanderStemmingLibrary
 	url = https://github.com/OleanderSoftware/OleanderStemmingLibrary

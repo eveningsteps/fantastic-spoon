@@ -5,9 +5,5 @@
 	"targetType": "sourceLibrary",
 	"dependencies": {
 		"htmld": "~>0.2"
-	},
-	"subPackages": [
-		"./ir01/",
-		"./ir02/",
-	]
+	}
 }

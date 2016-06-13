@@ -1,7 +1,5 @@
 {
 	"name": "ir01",
-	"authors": ["eveningsteps"],
-	
 	"dependencies": {
 		"fantastic-spoon": {
 			"path": "../"

@@ -1,4 +1,9 @@
 {
 	"name": "lp04",
+	"dependencies": {
+		"fantastic-spoon": {
+			"path": "../"
+		}
+	},
 	"targetType": "executable"
 }

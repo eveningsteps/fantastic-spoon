@@ -20,7 +20,7 @@ to compile any of tasks _(haha, who in their sane mind is gonna need this very r
 | lp02 | mandelbrot's law coefficients | |
 | lp03 | collocations | |
 | lp04 | language model w/ smoothing | lidstone smoothing |
-| lp05 | spellchecking | TBA |
+| lp05 | spellchecking | viterbi algorithm + lidstone smoothing |
 
 ## resources
 * texts used for IR tasks (may require preprocessing due to invalid html markdown):

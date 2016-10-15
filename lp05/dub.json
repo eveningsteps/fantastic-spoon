@@ -1,0 +1,9 @@
+{
+	"name": "lp05",
+	"dependencies": {
+		"fantastic-spoon": {
+			"path": "../"
+		}
+	},
+	"targetType": "executable"
+}

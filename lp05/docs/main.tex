@@ -1,0 +1,59 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{verbatim}
+
+\lstloadlanguages{C++}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Реализовать исправление опечаток.
+
+\subsection*{Алгоритм}
+Получившийся спеллчекер работает следующим образом. Вначале для каждого слова запроса генерируются все возможные кандидаты  с помощью каждой из четырёх операций:
+
+\begin{itemize}
+	\item Удаление произвольного символа;
+	\item Добавление произвольного символа;
+	\item Перестановка соседних символов местами;
+	\item Замена произвольного символа на произвольный.
+\end{itemize}
+
+Из кандидатов отбираются имеющиеся в обучающем корпусе, после чего с помощью алгоритма Витерби и сглаживающей языковой модели (Лидстон + биграммы) строится наиболее вероятная исправленная фраза.
+
+\subsection*{Исходный код}
+\lstinputlisting{../src/spellchecker.d}
+\lstinputlisting{../src/main.d}
+
+\subsection*{Результат выполнения}
+\verbatiminput{./result.txt}
+
+\subsection*{Выводы}
+Алгоритм Витерби позволяет избавиться от экспоненциальной сложности при поиске наиболее вероятного варианта исправления; время работы алгоритма составляет $O(T \cdot {|S|}^2)$, где $T$ --- число наблюдений (в данном случае --- количество слов в запросе), а $S$ --- множество состояний (слов-кандидатов).
+
+Возможно, вместо генерации кандидатов <<втупую>> стоило воспользоваться нечётким поиском, что могло бы сократить (а могло бы и не сократить, в зависимости от числа кандидатов, не обнаруженных в тексте) время работы.
+
+Что касается результатов, то у языковой модели есть свои проблемы, например, исправление менее популярных биграмм на более популярные (см. исправление к <<после удавшегося поукшения>>). От этого можно избавиться, как запрещая исправлять присутствующие в тексте биграммы, так и увеличивая порядок модели.
+
+\end{document}
+

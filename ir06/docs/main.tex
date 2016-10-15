@@ -1,0 +1,43 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\lstloadlanguages{C++}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4
+}
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Построить координатный индекс для цитатного поиска. Сравнить его размер с размером обычного индекса.
+
+
+\subsection*{Реализация}
+\lstinputlisting{../src/indexer.d}
+\lstinputlisting{../src/searcher.d}
+
+
+\subsection*{Результат выполнения}
+\lstinputlisting{./result.txt}
+
+
+\subsection*{Выводы}
+Размер индекса вырос приблизительно в 2 раза.
+\end{document}

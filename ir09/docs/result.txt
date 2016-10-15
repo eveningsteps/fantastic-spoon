@@ -1,0 +1,5 @@
+asd@capsule 13-index-compression$ du -h simple compr ../index/index | sort -h
+564K    compr
+1.2M    simple
+1.9M    ../index/index
+

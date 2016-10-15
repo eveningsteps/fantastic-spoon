@@ -1,0 +1,21 @@
+{
+	"name": "ir08",
+	"targetType": "none",
+	"subPackages": [
+		{
+			"name": "enumerator",
+			"targetType": "executable",
+			"excludedSourceFiles": ["src/{mapper,reducer}.d"]
+		},
+		{
+			"name": "mapper",
+			"targetType": "executable",
+			"excludedSourceFiles": ["src/{enumerator,reducer}.d"]
+		},
+		{
+			"name": "reducer",
+			"targetType": "executable",
+			"excludedSourceFiles": ["src/{enumerator,mapper}.d"]
+		}
+	]
+}

@@ -17,7 +17,7 @@ void main(string[] args)
 		none,
 		docs,
 		all
-	};
+	}
 	
 	Details details = Details.none;
 

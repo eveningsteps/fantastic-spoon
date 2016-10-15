@@ -1,0 +1,9 @@
+asd@capsule 09-coordinate-index$ ./task -i ./index -t ../../text/karenina.html --notext
+Index built in 617 ms
+Index read in 823 ms
+все счастливые
+[0]
+Query processed in 0.057 ms with 1 results
+я /3 князь
+[461, 578, 1231, 1235, 1236, 2344, 2347, 2811, 7634, 7685, 7705]
+Query processed in 1.807 ms with 11 results

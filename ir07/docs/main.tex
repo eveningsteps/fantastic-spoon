@@ -1,0 +1,50 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amssymb, latexsym, amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{citehack}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\lstloadlanguages{C++}
+\lstset{extendedchars=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	keepspaces = true,
+	tabsize=4,
+        texcl=true,
+}
+
+
+\begin{document}
+\include{./title}
+\newpage
+
+
+\subsection*{Постановка задачи}
+Реализовать поиск по запросам с метасимволом \*.
+
+\subsection*{Алгоритм}
+Для поиска используются два вспомогательных бора (trie), первый построен по словам из индекса, а второй --- по обращённым словам. В зависимости от положения метасимвола, разделённые им части слова ищутся в каждом боре и пересекаются.
+
+\subsection*{Реализация}
+\subsubsection*{Бор}
+\lstinputlisting{../src/trie.d}
+
+\subsubsection*{Поиск}
+\lstinputlisting{../src/searcher.d}
+
+
+\subsection*{Результат выполнения}
+\lstinputlisting{./result.txt}
+
+
+\subsection*{Выводы}
+Вместо поиска по двум борам и пересечения результатов можно обойтись индексом перестановок, храня все циклические перестановки слова с терминатором на конце.
+\end{document}
